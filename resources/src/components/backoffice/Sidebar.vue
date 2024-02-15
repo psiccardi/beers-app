@@ -43,7 +43,7 @@ const logout = () => {
         Utils.response.handleError(resp);
         setCookie('auth_token','', -1);
         setCookie(Utils.string.toUnderscoreSlug(APP_NAME) + '_session','', -1);
-        window.location.href = APP_URL + '/login';
+        setTimeout(window.location.href = APP_URL + '/login', 500);
     })
 }
 const updateMenu = () => {
