@@ -95,7 +95,7 @@
   }
 
   .beers_wrapper {
-    max-height: calc(100vh - 120px); /* -40px -40px -40px */
+    max-height: calc(100vh - 40px); /* -40px -40px -40px */
     overflow: auto;
     padding: 20px;
   }

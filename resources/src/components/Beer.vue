@@ -67,7 +67,6 @@ import { useI18n } from "vue-i18n";
   .beer {
     padding: 20px;
     margin-bottom: 20px;
-    max-width: calc(100vh - 40px);
   }
 
   .beer .beer-more-info {
