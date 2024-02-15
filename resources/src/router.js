@@ -94,7 +94,7 @@ router.beforeEach(async (to, from) => {
     try {
         user = await checkUser()
     } catch (e) {}
-    if (!user && to.meta.protected) {
+    if (!user && to?.meta?.protected) {
         return false;
     }
     return true;
