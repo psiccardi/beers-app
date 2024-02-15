@@ -155,7 +155,7 @@ return [
     |
     */
 
-    'domain' => $_SERVER["SERVER_NAME"],#env('SESSION_DOMAIN'),
+    'domain' => $_SERVER['SERVER_NAME'] ?? env('SESSION_DOMAIN'),#env('SESSION_DOMAIN'),
 
     /*
     |--------------------------------------------------------------------------

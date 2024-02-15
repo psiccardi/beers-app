@@ -12,3 +12,16 @@
 .v-sidebar-menu.vsm_collapsed ~ .content-right-side {
     margin-left: 65px;
 }
+
+@media (max-width: 762px) {
+    .v-sidebar-menu {
+        display:none !important;
+    }
+
+    .v-sidebar-menu ~ .content-right-side {
+        margin-left: 0px !important;
+    }
+    .v-sidebar-menu.vsm_collapsed ~ .content-right-side {
+        margin-left: 0px !important;
+    }
+}
