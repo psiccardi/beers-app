@@ -1,0 +1,85 @@
+{
+    "username": "Username",
+    "language": "Italiano",
+    "administrator": "Amministratore",
+    "operator": "Operatore",
+    "author": "Autore",
+    "email": "Email",
+    "first_name": "Nome",
+    "last_name": "Cognome",
+    "full_name": "Nome completo",
+    "password": "Password",
+    "confirm_password": "Conferma password",
+    "fill_password": "Inserisci password",
+    "fill_all_fields": "Compilare tutti i campi",
+    "edit": "Modifica",
+    "edit_password": "Modifica password",
+    "old_password": "Password attuale",
+    "edit_user": "Modifica utente",
+    "create_user": "Crea utente",
+    "delete_user": "Elimina utente",
+    "create_post": "Crea post",
+    "edit_post": "Modifica post",
+    "delete_post": "Elimina post",
+    "cancel": "Annulla",
+    "role": "Ruolo",
+    "logout": "Esci",
+    "title": "Titolo",
+    "content": "Contenuto",
+    "backoffice": {
+        "profile": "Profilo",
+        "users": "Utenti",
+        "posts": "Post",
+        "input": {
+            "first_name": {
+                "description": "Modifica il tuo nome",
+                "valid_feedback": "Il nome inserito è valido",
+                "invalid_feedback": "Il nome inserito non è valido"
+            },
+            "last_name": {
+                "description": "Modifica il tuo cognome",
+                "valid_feedback": "Il cognome inserito è valido",
+                "invalid_feedback": "Il cognome inserito non è valido"
+            },
+            "email": {
+                "description": "Modifica la tua email",
+                "valid_feedback": "La email inserita è valida",
+                "invalid_feedback": "La email inserita non è valida"
+            },
+            "password": {
+                "description": "Modifica la tua password",
+                "valid_feedback": "La password inserita è valida",
+                "invalid_feedback": "La password inserita non è valida"
+            },
+            "confirm_password": {
+                "description": "Conferma la password",
+                "valid_feedback": "La password inserita è valida",
+                "invalid_feedback": "La password inserita non è valida"
+            },
+            "old_password": {
+                "description": "Inserisci la password attuale",
+                "valid_feedback": "La password inserita è valida",
+                "invalid_feedback": "La password inserita non è valida"
+            },
+            "role": {
+                "description": "Seleziona il ruolo",
+                "valid_feedback": "",
+                "invalid_feedback": ""
+            },
+            "title": {
+                "description": "Scrivi il titolo",
+                "valid_feedback": "",
+                "invalid_feedback": ""
+            },
+            "content": {
+                "description": "Scrivi il contenuto",
+                "valid_feedback": "",
+                "invalid_feedback": ""
+            }
+        },
+        "delete_user_confirm_question": "Sei sicuro di voler eliminare questo utente?",
+        "delete_post_confirm_question": "Sei sicuro di voler eliminare questo post?",
+        "edit_password_successful": "Password modificata con successo!",
+        "edit_user_successful": "Utente modificato con successo!"
+    }
+}

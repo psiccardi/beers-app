@@ -1,0 +1,14 @@
+#backoffice {
+    height: 100%;
+}
+
+.content-right-side {
+    transition: margin-left .3s ease;
+}
+
+.v-sidebar-menu ~ .content-right-side {
+    margin-left: 290px;
+}
+.v-sidebar-menu.vsm_collapsed ~ .content-right-side {
+    margin-left: 65px;
+}

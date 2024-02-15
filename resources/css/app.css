@@ -1,0 +1,54 @@
+html, body {
+    height: 100%;
+}
+
+.navbar.fixed-true {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: white;
+}
+
+.snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    /*margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    right: 30px; /* Center the snackbar */
+    top: 30px; /* 30px from the bottom */
+  }
+
+  .snackbar.still {
+    visibility: visible;
+  }
+
+  .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+
+  /* Show the snackbar when clicking on a button (class added with JavaScript) */
+  .snackbar.show {
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+
+  .pointer {
+    cursor: pointer !important;
+  }
+
+  .filter-header {
+    padding: 8px;
+    border-bottom: 1px solid #828da0;
+  }

@@ -1,0 +1,85 @@
+{
+    "username": "Nombre de usuario",
+    "language": "Español",
+    "administrator": "Administrador",
+    "operator": "Operador",
+    "author": "Autor",
+    "email": "Correo electrónico",
+    "first_name": "Nombre",
+    "last_name": "Apellido",
+    "full_name": "Nombre completo",
+    "password": "Contraseña",
+    "confirm_password": "Confirma Contraseña",
+    "fill_password": "Ingresa contraseña",
+    "fill_all_fields": "Completa todos los campos del formulario",
+    "edit": "Edita",
+    "edit_password": "Edita Contraseña",
+    "old_password": "Contraseña actual",
+    "logout": "Cerrar sesión",
+    "edit_user": "Modifica usario",
+    "create_user": "Crea usuario",
+    "delete_user": "Elimina usuario",
+    "create_post": "Crea publicacione",
+    "edit_post": "Modifica publicacione",
+    "delete_post": "Elimina publicacione",
+    "cancel": "Anula",
+    "role": "Rol de usuario",
+    "title": "Titulo",
+    "content": "Contenido",
+    "backoffice": {
+        "profile": "Perfil",
+        "users": "Usuarios",
+        "posts": "Publicaciones",
+        "input": {
+            "first_name": {
+                "description": "Editar tu nombre",
+                "valid_feedback": "El nombre ingresado es válido",
+                "invalid_feedback": "El nombre ingresado no es válido"
+            },
+            "last_name": {
+                "description": "Editar tu apellido",
+                "valid_feedback": "El apellido ingresado es válido",
+                "invalid_feedback": "El apellido ingresado no es válido"
+            },
+            "email": {
+                "description": "Editar tu correo electrónico",
+                "valid_feedback": "El correo electrónico ingresado es válido",
+                "invalid_feedback": "El correo electrónico ingresado no es válido"
+            },
+            "password": {
+                "description": "Editar tu contraseña",
+                "valid_feedback": "La contraseña ingresada es válida",
+                "invalid_feedback": "La contraseña ingresada no es válida"
+            },
+            "confirm_password": {
+                "description": "Confirmar la contraseña",
+                "valid_feedback": "La contraseña ingresada es válida",
+                "invalid_feedback": "La contraseña ingresada no es válida"
+            },
+            "old_password": {
+                "description": "Insertar la contraseña vieja",
+                "valid_feedback": "La contraseña ingresada es válida",
+                "invalid_feedback": "La contraseña ingresada no es válida"
+            },
+            "role": {
+                "description": "Selecciona el rol",
+                "valid_feedback": "",
+                "invalid_feedback": ""
+            },
+            "title": {
+                "description": "Insertar título",
+                "valid_feedback": "",
+                "invalid_feedback": ""
+            },
+            "content": {
+                "description": "Insertar contenido",
+                "valid_feedback": "",
+                "invalid_feedback": ""
+            }
+        },
+        "delete_user_confirm_question": "¿Estás seguro de que quieres eliminar a este usuario?",
+        "delete_post_confirm_question": "¿Estás seguro de que quieres eliminar a esta publicacione?",
+        "edit_password_successful": "Contraseña cambiada con éxito",
+        "edit_user_successful": "Usuario editado con éxito"
+    }
+}
