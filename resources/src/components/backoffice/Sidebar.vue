@@ -39,12 +39,13 @@ const props = defineProps({
 });
 const logout = () => {
     console.log(Utils, APP_NAME, Utils.string.toUnderscoreSlug(APP_NAME));
-    logoutWebAPI({}, resp => {
-        Utils.response.handleError(resp);
-        setCookie('auth_token','', -1);
-        setCookie(Utils.string.toUnderscoreSlug(APP_NAME) + '_session','', -1);
-        setTimeout(() => window.location.href = APP_URL + '/logout', 500);
-    })
+    // logoutWebAPI({}, resp => {
+    //     Utils.response.handleError(resp);
+    //     setCookie('auth_token','', -1);
+    //     setCookie(Utils.string.toUnderscoreSlug(APP_NAME) + '_session','', -1);
+    //     setTimeout(() => window.location.href = APP_URL + '/logout', 500);
+    // })
+    window.location.href = APP_URL + '/logout';
 }
 const updateMenu = () => {
     menu.value = [

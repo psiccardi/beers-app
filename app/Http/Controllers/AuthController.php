@@ -21,9 +21,11 @@ class AuthController extends Controller
         auth('web')->logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
-        return response()->json([
-            "success" => true
-        ]);
+        setcookie('auth_token', '', -1);
+        setcookie(strtolower(str_replace(' ', '_', env('APP_NAME'))) . '_session', '', -1);
+        // setCookie('auth_token','', -1);
+        // setCookie(Utils.string.toUnderscoreSlug(APP_NAME) + '_session','', -1);
+        return redirect(route('login'));
     }
     //
     public function login(Request $request)
