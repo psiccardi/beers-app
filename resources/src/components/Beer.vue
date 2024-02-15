@@ -67,6 +67,7 @@ import { useI18n } from "vue-i18n";
   .beer {
     padding: 20px;
     margin-bottom: 20px;
+    max-width: 100vh;
   }
 
   .beer .bold {
