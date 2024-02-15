@@ -18,7 +18,7 @@
     <body class="antialiased ">
         <div id="index"></div>
         <script>
-            const APP_URL = '{{ env('APP_URL') }}';
+            const APP_URL = '{{ config('app.url') }}';
             const APP_NAME = '{{ env('APP_NAME') }}';
         </script>
         @vite('resources/js/index.js')
