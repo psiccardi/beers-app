@@ -20,7 +20,7 @@ class RedirectIfLogged
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(route('backoffice', ['all' => 'profile']));
+                return redirect(route('beers'));
             }
         }
 
