@@ -21,7 +21,9 @@ Route::middleware('redirectIfLogged')->get('/login', function () {
 })->name('login');
 
 Route::middleware('locale')->group(function () {
-    Route::get("/", [HomeController::class, "getPage"]);
+    Route::get("/", function () {
+        return redirect(route('login'));
+    });
     Route::post("/login", [AuthController::class, "loginWeb"]);
 });
 
