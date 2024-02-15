@@ -6,7 +6,7 @@
         <div class="beer-infos flex-grow-1">
             <div class="beer-name">{{ props.beer.name }}</div>
             <div class="beer-description">{{ props.beer.description }}</div>
-            <div class="d-flex justify-content-between">
+            <div class="beer-more-info">
                 <div class="beer-ingredients-wrapper">
                     <div class="bold">Ingredients:</div>
                     <ul>
@@ -67,9 +67,19 @@ import { useI18n } from "vue-i18n";
   .beer {
     padding: 20px;
     margin-bottom: 20px;
-    max-width: 100vh;
+    max-width: calc(100vh - 40px);
   }
 
+  .beer .beer-more-info {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 762px) {
+    .beer .beer-more-info {
+        display: block;
+    }
+  }
   .beer .bold {
     font-weight: bold;
   }
