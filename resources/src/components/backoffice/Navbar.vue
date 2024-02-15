@@ -15,10 +15,11 @@
 <style scoped>
     #navbar-logout-btn {
         cursor: pointer;
+        display: none;
     }
     @media (max-width: 762px) {
         #navbar-logout-btn {
-            display: none;
+            display: block;
         }
     }
 </style>
