@@ -1,6 +1,8 @@
 <template>
     <b-navbar sticky="top" variant="light">
-            <div id="navbar-logout-btn" :onclick="logout">{{ t('logout') }}</div>
+            <div>
+                <div id="navbar-logout-btn" :onclick="logout">{{ t('logout') }}</div>
+            </div>
             <Locale />
     </b-navbar>
 </template>
