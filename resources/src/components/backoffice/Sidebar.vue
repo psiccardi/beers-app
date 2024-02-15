@@ -53,17 +53,6 @@ const updateMenu = () => {
             title: beersText.value
         }
     ]
-
-    // menu.value = [
-    //     {
-    //         href: '/backoffice/profile',
-    //         title: profileText.value,
-    //     },
-    //     {
-    //         href: '/backoffice/users',
-    //         title: usersText.value,
-    //     },
-    // ]
 }
 watch(locale, () => {
     //console.log('locale', locale.value);
@@ -72,37 +61,7 @@ watch(locale, () => {
 })
 
 updateMenu();
-// menu.value = [
-//     {
-//         href: '/backoffice/profile',
-//         title: profileText.value,
-//     },
-//     {
-//         href: '/backoffice/users',
-//         title: usersText.value,
-//     },
 
-// ]
-
-// export default {
-//     components: {
-//         Locale,
-//         SidebarMenu
-//     },
-//     setup() {
-//         const { t, locale } = useI18n();
-//     },
-//     data() {
-//         return {
-//             menu: [
-//                 {
-//                     href: APP_URL + '/backoffice/dashboard',
-//                     title: t('Dashboard')
-//                 }
-//             ]
-//         }
-//     }
-// }
 </script>
 
 <style scoped>

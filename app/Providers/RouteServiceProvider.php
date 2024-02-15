@@ -24,6 +24,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->setCorrectAppUrl();
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(1000)->by($request->user()?->id ?: $request->ip());
         });
@@ -36,5 +37,14 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+    }
+
+    protected function setCorrectAppUrl()
+    {
+        if (isset($_SERVER['HTTP_HOST'])) {
+            $host     = $_SERVER['HTTP_HOST'];
+            $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443 ? "https://" : "http://";
+            config(['app.url' => $protocol . $host]);
+        }
     }
 }
