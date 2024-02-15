@@ -29,11 +29,10 @@ import { logoutWebAPI } from '../../../js/utilities/api';
 import Utils from '../../../js/utilities/utils';
 import { useRouter } from 'vue-router';
 import { setCookie } from '../../../js/utilities/cookies';
+import Beers from '../../pages/Beers.vue';
 const { t, locale } = useI18n();
 const menu = ref([]);
-const profileText = ref(t('backoffice.profile'))
-const usersText = ref(t('backoffice.users'));
-const postsText = ref(t('backoffice.posts'));
+const beersText = ref(t('beers'))
 const router = useRouter();
 const props = defineProps({
     user: Object
@@ -48,40 +47,12 @@ const logout = () => {
     })
 }
 const updateMenu = () => {
-    const administratorSidebar = [
+    menu.value = [
         {
-            href: '/backoffice/profile',
-            title: profileText.value,
-        },
-        {
-            href: '/backoffice/admin/users',
-            title: usersText.value,
-        },
-        {
-            href: '/backoffice/admin/posts',
-            title: postsText.value,
-        },
-    ];
-
-    const operatorSidebar = [
-        {
-            href: '/backoffice/profile',
-            title: profileText.value,
-        },
-        {
-            href: '/backoffice/operator/posts',
-            title: postsText.value,
-        },
+            href: '/beers',
+            title: beersText.value
+        }
     ]
-
-    switch (props.user.role?.name) {
-        case 'administrator':
-            menu.value = administratorSidebar;
-            break;
-        case 'operator':
-            menu.value = operatorSidebar;
-            break;
-    }
 
     // menu.value = [
     //     {
@@ -96,9 +67,7 @@ const updateMenu = () => {
 }
 watch(locale, () => {
     //console.log('locale', locale.value);
-    profileText.value = t('backoffice.profile')
-    usersText.value = t('backoffice.users')
-    postsText.value = t('backoffice.posts')
+    beersText.value = t('beers');
     updateMenu();
 })
 

@@ -1,4 +1,5 @@
 <script setup>
+    console.log('LOGIN');
     import './../../css/login.css';
 
     import { ref } from 'vue';

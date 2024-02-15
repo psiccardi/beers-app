@@ -90,14 +90,22 @@ const checkUser = async function (fn) {
 };
 
 router.beforeEach(async (to, from) => {
-    const user = await checkUser()
-    if (!to.meta) {
-        return true;
+    let user = null;
+    try {
+        user = await checkUser()
+    } catch (e) {}
+    if (!user && to.meta.protected) {
+        return false;
     }
-    if (to.meta.protected && user?.id) {
-        return true;
-    }
-    return false;
+    return true;
+    // if (!to.meta) {
+    //     return true;
+    // }
+    // if (to.meta.protected && user?.id) {
+    //     return true;
+    // }
+    // return false;
+
 })
 
 export default router
