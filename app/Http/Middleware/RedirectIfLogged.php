@@ -10,11 +10,12 @@ use Symfony\Component\HttpFoundation\Response;
 class RedirectIfLogged
 {
     /**
-     * Handle an incoming request.
+     * This method checks if user is authenticated, then makes a redirect
+     * to main protected route 'web.beers'
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, string ...$guards): Response
     {
         $guards = empty($guards) ? [null] : $guards;
 

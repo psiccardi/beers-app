@@ -20,7 +20,6 @@ use App\Http\Controllers\BeersController;
 Route::middleware(['customSanctumAuthentication', 'locale'])->group(function () {
     Route::get('/user', function (Request $request) {
         $user = $request->user();
-        $user->loadAllData();
         return $user;
     });
 

@@ -8,17 +8,25 @@ use Illuminate\Http\Request;
 
 class Locale
 {
-   # const LOCALES = ['it', 'en'];
-
-    public static function getSupportedLanguages()
+    /**
+     * This method returns the supported languages, retrieving automatically
+     * the folder names inside the 'lang' folder
+     *
+     * @return array
+     */
+    public static function getSupportedLanguages(): array
     {
-        $langs = [];
         $folders = glob(base_path() . "/lang/*");
         return array_map(function ($el) {
             return basename($el);
         }, $folders);
     }
 
+    /**
+     * This method sets the app language and then proceeds to next
+     * middleware/route
+     *
+     */
     public function handle(Request $request, Closure $next)
     {
         $locales = self::getSupportedLanguages();
