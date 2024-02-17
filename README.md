@@ -22,29 +22,29 @@ To run unit tests from terminal:
 
 ## Test APIs with Postman (or equivalent) ##
 ### Login API ###
-***Endpoint***: /api/login
+**Endpoint**: /api/login
 
-***Method***: POST
+**Method**: POST
 
-***Parameters***:
- - ***username***: root
- - ***password***: password
+**Parameters**:
+ - **username**: root
+ - **password**: password
 
 This API returns a JSON object with the following keys:
- - ***token***: the token that should be used for subsequent API requests
- - ***user***: an object representing the current user
+ - **token**: the token that should be used for subsequent API requests
+ - **user**: an object representing the current user
 
 ### Beers List API ###
-***Endpoint***: /api/beers
+**Endpoint**: /api/beers
 
-***Method***: GET
+**Method**: GET
 
-***Parameters***:
- - ***page***: 0 or any positive integer
- - ***limit***: 1-80 (if limit > 80 this API returns a Bad Request Error)
+**Parameters**:
+ - **page**: 0 or any positive integer
+ - **limit**: 1-80 (if limit > 80 this API returns a Bad Request Error)
 
-***Authentication***:
-This route is protected, so you have to add a Bearer Authentication header with the token retrieved from ***Login API***.
+**Authentication**:
+This route is protected, so you have to add a Bearer Authentication header with the token retrieved from **Login API**.
 
 An example with curl:
 ```
