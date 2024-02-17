@@ -33,8 +33,6 @@ RUN docker-php-ext-install \
     pdo_mysql \
     gd
 
-#RUN pecl install apcu && docker-php-ext-enable apcu
-
 # Ensure PHP logs are captured by the container
 ENV LOG_CHANNEL=stderr
 
@@ -45,27 +43,6 @@ ENV LOG_CHANNEL=stderr
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . /var/www/tmp
 RUN cp /var/www/tmp/.env.docker /var/www/tmp/.env
-# COPY ./app /var/www/tmp
-# COPY ./bootstrap /var/www/tmp
-# COPY ./config /var/www/tmp
-# COPY ./database /var/www/tmp
-# COPY ./lang /var/www/tmp
-# COPY ./node_modules /var/www/tmp
-# COPY ./public /var/www/tmp
-# COPY ./resources /var/www/tmp
-# COPY ./routes /var/www/tmp
-# COPY ./storage /var/www/tmp
-# COPY ./tests /var/www/tmp
-# COPY .editorconfig /var/www/tmp
-# COPY .env /var/www/tmp
-# COPY artisan /var/www/tmp
-# COPY composer.json /var/www/tmp
-# COPY composer.lock /var/www/tmp
-# COPY docker-entrypoint.sh /var/www/tmp
-# COPY package-lock.json /var/www/tmp
-# COPY package.json /var/www/tmp
-# COPY phpunit.xml /var/www/tmp
-# COPY vite.config.js /var/www/tmp
 
 RUN cd /var/www/tmp && composer install --no-dev
 RUN mkdir -p /Applications/XAMPP/xamppfiles/logs/
