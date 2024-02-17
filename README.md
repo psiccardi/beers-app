@@ -14,6 +14,7 @@ To test this project with docker you should:
 2) run **docker-compose build** and **docker-compose up** or **docker-compose up --build**
 3) navigate in the browser to **http://localhost:8000**
 4) Type **root** as username **password** as password in the login form
+5) In the Beers page, scroll down the list of the beers to the bottom to view more beers
 
 ## Run Unit tests ##
 To run unit tests from terminal:
