@@ -9,7 +9,17 @@ use Illuminate\Support\Facades\Validator;
 
 class BeersController extends Controller
 {
-    //
+    /**
+     * This method makes a request to an external service that
+     * expose a paginated list of beers.
+     * The route that uses this method is protected by the middleware
+     * customSanctumAuthentication, that checks the validity of the Bearer token
+     * 'page' and 'limit' parameters are mandatory
+     *
+     * @param Request $request
+     *
+     *
+     */
     public function get(Request $request)
     {
         $validateData = Validator::make($request->all(), [

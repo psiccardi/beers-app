@@ -2,18 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes\ErrorHandler;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Classes\ErrorHandler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function logoutWeb(Request $request)
+    /**
+     * Web logout route
+     * This method revokes the token sent in 'Bearer' authentication header,
+     * invalidates session and destroys all cookies generated
+     *
+     * @param Request $request
+     *
+     * @return Redirector|RedirectResponse
+     */
+    public function logoutWeb(Request $request): Redirector|RedirectResponse
     {
         $user = $request->user();
         $tokenId = Str::before(request()->bearerToken(), '|');
@@ -25,7 +37,16 @@ class AuthController extends Controller
         setcookie(strtolower(str_replace(' ', '_', env('APP_NAME'))) . '_session', '', -1);
         return redirect(route('login'));
     }
-    //
+
+    /**
+     * Api Login route
+     * This method performs login and returns a JSON object
+     * with the token and the current user
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
     public function login(Request $request)
     {
         $validateData = Validator::make($request->all(), [
@@ -51,6 +72,16 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Web Login route
+     * This method is used to authenticate the user
+     * both for api requests and web.
+     * Returns a JSON Object with the token and the current user
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
     public function loginWeb(Request $request)
     {
         $validateData = Validator::make($request->all(), [

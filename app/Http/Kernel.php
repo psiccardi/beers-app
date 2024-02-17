@@ -56,8 +56,6 @@ class Kernel extends HttpKernel
     protected $middlewareAliases = [
         'customSanctumAuthentication' => \App\Http\Middleware\CustomSanctumAuthentication::class,
         'redirectIfLogged' => \App\Http\Middleware\RedirectIfLogged::class,
-        'adminCheck' => \App\Http\Middleware\AdminCheck::class,
-        'adminCheckAPI' => \App\Http\Middleware\AdminCheckAPI::class,
         'locale' => \App\Http\Middleware\Locale::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

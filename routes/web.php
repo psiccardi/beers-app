@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\BackofficeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +15,7 @@ use App\Http\Controllers\BackofficeController;
 |
 */
 
-Route::middleware('redirectIfLogged')->get('/login', function () {
-    return view('index');
-})->name('login');
+Route::middleware('redirectIfLogged')->get('/login', [HomeController::class, "getPage"])->name('login');
 
 Route::middleware('locale')->group(function () {
     Route::get("/", function () {
