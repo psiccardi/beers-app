@@ -43,5 +43,5 @@ This route is protected, so you have to add a Bearer Authentication header with 
 
 An example with curl:
 ```
-curl --location 'https://www.beers-app.me/api/beers?page=0&limit=20' --header 'Authorization: Bearer <token>
+curl --location 'https://www.beers-app.me/api/beers?page=0&limit=20' --header 'Authorization: Bearer <token>'
 ```
