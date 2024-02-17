@@ -8,7 +8,7 @@
 </template>
 <script setup>
     import { useI18n } from 'vue-i18n';
-    import Locale from '../Locale.vue';
+    import Locale from './Locale.vue';
     const {t, locale} = useI18n()
     const logout = function () {
         window.location.href = APP_URL + '/logout';

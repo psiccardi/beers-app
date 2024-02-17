@@ -28,5 +28,5 @@ Route::middleware(['customSanctumAuthentication', 'locale'])->group(function () 
 });
 
 Route::middleware('locale')->group(function () {
-    Route::post("/login", [AuthController::class, "login"]);
+    Route::post("/login", [AuthController::class, "login"])->name('api.login');
 });

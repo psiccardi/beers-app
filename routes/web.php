@@ -24,7 +24,7 @@ Route::middleware('locale')->group(function () {
     Route::get("/", function () {
         return redirect(route('login'));
     });
-    Route::post("/login", [AuthController::class, "loginWeb"]);
+    Route::post("/login", [AuthController::class, "loginWeb"])->name('web.login');
 });
 
 Route::middleware(['locale', 'auth:sanctum'])->group(function () {
