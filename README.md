@@ -9,7 +9,7 @@ The first steps are:
 
 ## Test with docker ##
 To test this project with docker you should:
-1) create a folder **<project root folder>/../docker-volumes/beers-app/db**, this is the volume 
+1) create a folder **&lt;project root folder>&gt;/../docker-volumes/beers-app/db**, this is the volume 
    where is stored all database data
 2) run **docker-compose build** and **docker-compose up** or **docker-compose up --build**
 3) navigate in the browser to **http://localhost:8000**
