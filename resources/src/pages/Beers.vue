@@ -8,7 +8,7 @@
   <script setup>
   import { ref, watch, toRaw, onMounted, reactive } from "vue";
   import { useI18n } from "vue-i18n";
-
+  import loadingSvg from './../../images/loading.svg'
   import {
     getBeersAPI
   } from "../../js/utilities/api.js";
@@ -42,10 +42,11 @@
       limit: limit.value,
     };
     fetching_beers_data.value = true;
-
+    Utils.DOM.addLoading(loadingSvg);
     getBeersAPI(
       data,
       (resp) => {
+        Utils.DOM.removeLoading();
         fetching_beers_data.value = false;
         Utils.response.handleError(resp);
         const _beers = beers.value;
@@ -56,6 +57,7 @@
         }
       },
       (err) => {
+        Utils.DOM.removeLoading();
         fetching_beers_data.value = false;
         Utils.DOM.toast(err.message, "error", t);
         console.log(err.stack);

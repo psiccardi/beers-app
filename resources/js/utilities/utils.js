@@ -5,9 +5,10 @@ Utils.functions = {};
 /**
  * This function adds Infinite Scroll logic to an HTML Element
  *
- * @param {string|HTMLElement} el: this can be a CSS selector, or an HTMLElement instance
+ * @param {String|HTMLElement} el: this can be a CSS selector, or an HTMLElement instance
  *
  * @param {Function} callback: the function called when the scrolling reaches bottom
+ *
  */
 Utils.functions.initInfiniteScroll = function (el, callback) {
     if (!(el instanceof HTMLElement)) {
@@ -24,11 +25,29 @@ Utils.functions.initInfiniteScroll = function (el, callback) {
 
 Utils.string = {};
 
+/**
+ * This function replaces blank spaces with underscores
+ * and transforms the string into lowercase
+ *
+ * @param {String} string
+ *
+ * @returns {String}
+ */
 Utils.string.toUnderscoreSlug = function (string) {
     string = string.replace(/\s+/, '_');
     return string.toLowerCase();
 }
 
+/**
+ * This function truncates a string and, if length < string.length, adds '...'
+ * to the end of the string
+ *
+ * @param {String} string
+ *
+ * @param {Number} length
+ *
+ * @returns {String}
+ */
 Utils.string.truncate = function (string, length) {
     if (string.length <= length) {
         return string;
@@ -37,12 +56,28 @@ Utils.string.truncate = function (string, length) {
     return string.substring(0, length) + "...";
 };
 
+/**
+ * This function transforms a string in an HTML-encoded string
+ *
+ * @param {String} rawStr
+ *
+ * @returns {String}
+ */
 Utils.string.encodeHTMLEntities = (rawStr) => {
     return rawStr.replace(/[\u00A0-\u9999<>\&]/g, i => '&#'+i.charCodeAt(0)+';')
 }
 
 Utils.response = {};
 
+/**
+ * This function throws an Error if exists 'ERROR' or 'error' keys
+ * inside the Object 'data'.
+ * This function is used to handle the responses from the API requests
+ *
+ * @param {Object} data
+ *
+ * @param {Function} t
+ */
 Utils.response.handleError = function (data, t) {
     if (data.ERROR) {
         throw new Error(t(data.ERROR.MESSAGE));
@@ -53,6 +88,25 @@ Utils.response.handleError = function (data, t) {
 
 Utils.URL = {};
 
+/**
+ * This function parses the query string of an URL and returns an object
+ * Example:
+ * var p='?test=value&test2[key1]=test2_value1&test2[key2]=test2_value2'
+ *
+ * Utils.URL.parseParams(p) returns:
+ * {
+ *      test: 'value',
+ *      test2: {
+ *          key1: 'test2_value1',
+ *          key2: 'test2_value2'
+ *      }
+ * }
+ *
+ *
+ * @param {String} p
+ *
+ * @returns {Object}
+ */
 Utils.URL.parseParams = function (p) {
     var p = p.replace(/^\?/, "");
     var paramsSplit = p.split("&");
@@ -64,7 +118,7 @@ Utils.URL.parseParams = function (p) {
         var firstKey = key.match(/^([^\[])+/g);
         var test = key.match(/\[([^\]]+)\]/gi);
         if (test && test.length) {
-            _obj[firstKey] = {};
+            _obj[firstKey] = _obj[firstKey] || {};
             _obj = _obj[firstKey];
             for (var j = 0; j < test.length; j++) {
                 var sKey = test[j];
@@ -90,6 +144,17 @@ Utils.URL.parseParams = function (p) {
 
 Utils.number = {};
 
+/**
+ * This function is used to reduce the decimal part of a float number
+ * Example: var x = 3.4678;
+ * var y=Utils.number.toDigits(x, 1);
+ * console.log(y) --> prints 3.4
+ *
+ * @param {Number} num
+ *
+ * @param {Number} dnum
+ * @returns
+ */
 Utils.number.toDigits = function (num, dnum) {
     console.log("toDigits: num = ", num);
     var num2 = "" + num;
@@ -111,7 +176,11 @@ Utils.number.toDigits = function (num, dnum) {
  *************/
 Utils.DOM = {};
 
-
+/**
+ * This function adds a loader in the DOM
+ *
+ * @param {String} imgSrc
+ */
 Utils.DOM.addLoading = (imgSrc) => {
     let div = document.createElement("div");
     div.style.position = "fixed";
@@ -128,70 +197,13 @@ Utils.DOM.addLoading = (imgSrc) => {
         "vertical-align:middle;text-align:center;width:100%;height:100%";
 };
 
+/**
+ * This function removes a loader, if exists
+ */
 Utils.DOM.removeLoading = () => {
     if (document.getElementById("document-loading")) {
         document.getElementById("document-loading").remove();
     }
-};
-
-Utils.DOM.addEmptyState = (
-    selector,
-    text,
-    src,
-    append = false,
-    cssStyles = {}
-) => {
-    let mainDiv = document.querySelector(selector);
-    let img = "";
-
-    var imgCssStyles = "";
-    var textCssStyles = "";
-    var containerCssStyles = "";
-
-    if (cssStyles.image) {
-        imgCssStyles = 'style="';
-        for (var prop in cssStyles.image) {
-            imgCssStyles += prop + ":" + cssStyles.image[prop] + ";";
-        }
-        imgCssStyles += '"';
-    }
-
-    if (cssStyles.text) {
-        textCssStyles = 'style="';
-        for (var prop in cssStyles.text) {
-            textCssStyles += prop + ":" + cssStyles.text[prop] + ";";
-        }
-        textCssStyles += '"';
-    }
-
-    if (cssStyles.container) {
-        containerCssStyles = 'style="';
-        for (var prop in cssStyles.container) {
-            containerCssStyles += prop + ":" + cssStyles.container[prop] + ";";
-        }
-        containerCssStyles += '"';
-    }
-
-    console.log(textCssStyles);
-
-    if (src) {
-        img = `<img ${imgCssStyles} class="empty-state-img" src="${src}">`;
-    }
-    if (append) {
-        mainDiv.innerHTML += `<table ${containerCssStyles} class="empty-state">
-        <tr><td>${img}
-        <div class="empty-state-message" ${textCssStyles}>${text}</div></td></tr>
-    </table>`;
-    } else {
-        mainDiv.innerHTML = `<table ${containerCssStyles} class="empty-state">
-            <tr><td>${img}
-            <div class="empty-state-message" ${textCssStyles}>${text}</div></td></tr>
-        </table>`;
-    }
-};
-
-Utils.DOM.removeEmptyState = (selector) => {
-    $(selector + " .empty-state").remove();
 };
 
 Utils.DOM.toastCounters = 0;
