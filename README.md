@@ -40,5 +40,8 @@ This API returns a JSON object with the following keys:
  - ***limit***: 1-80 (if limit > 80 this API returns a Bad Request Error)
 ***Authentication***:
 This route is protected, so you have to add a Bearer Authentication header with the token retrievet from ***Login API***.
+
 An example with curl:
+```
 curl --location 'https://www.beers-app.me/api/beers?page=0&limit=20' --header 'Authorization: Bearer &lt;token&gt;
+```
