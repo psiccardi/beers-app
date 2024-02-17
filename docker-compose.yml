@@ -7,8 +7,8 @@ services:
             - "8000:80"
         # volumes:
         #     - ./:/var/www/html/
-        links:
-            - db:db
+        depends_on:
+            - db
         networks:
             - default
     db:
@@ -27,15 +27,18 @@ services:
             - default
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
-        links:
-            - db:db
+        depends_on:
+            - db
         ports:
             - 8001:80
         environment:
             MYSQL_USER: beers-app
             MYSQL_PASSWORD: password
             MYSQL_ROOT_PASSWORD: password
+        networks:
+            - default
 networks:
     default:
         external: false
+        driver: bridge
 

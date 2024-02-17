@@ -39,7 +39,7 @@ RUN docker-php-ext-install \
 ENV LOG_CHANNEL=stderr
 
 # Set a volume mount point for your code
-VOLUME /var/www/html
+#VOLUME /var/www/html
 
 # Copy code and run composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
