@@ -51,9 +51,7 @@ RUN mkdir -p /Applications/XAMPP/xamppfiles/temp/
 RUN chmod -R 0777 /Applications/XAMPP/xamppfiles/temp/
 
 COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf
-COPY php.ini /usr/local/etc/php/php.ini
-
-#RUN echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
+COPY php.ini /usr/local/etc/php/php.i
 
 # Ensure the entrypoint file can be run
 RUN chmod +x /var/www/tmp/docker-entrypoint.sh
