@@ -36,15 +36,7 @@ const refreshUser = (_user = null, emit, user, refs = {}, fn = null) => {
       refs[prop].value = _user[prop];
     }
     fn && fn();
-    // if (typeof first_name_value !== 'undefined') {
-    //     first_name_value.value = _user.first_name;
-    // }
-    // if (typeof last_name_value !== 'undefined') {
-    //     last_name_value.value = _user.last_name;
-    // }
-    // if (typeof email_value !== 'undefined') {
-    //     email_value.value = _user.email;
-    // }
+
     return;
   }
   getUserAPI(
