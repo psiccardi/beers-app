@@ -1,0 +1,41 @@
+version: "3.8"
+services:
+    beers:
+        build: .
+        # dockerfile: 'Dockerfile'
+        ports:
+            - "8000:80"
+        # volumes:
+        #     - ./:/var/www/html/
+        links:
+            - db:db
+        networks:
+            - default
+    db:
+        image: mysql
+        ports:
+            - "3307:3306"
+        environment:
+            MYSQL_DATABASE: beers-app
+            MYSQL_USER: beers-app
+            MYSQL_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: password
+        volumes:
+            #- ./dump:/docker-entrypoint-initdb.d
+            - ./../docker-volumes/beers-app/db:/var/lib/mysql
+        networks:
+            - default
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        links:
+            - db:db
+        ports:
+            - 8001:80
+        environment:
+            MYSQL_USER: beers-app
+            MYSQL_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: password
+networks:
+    default:
+        external: false
+

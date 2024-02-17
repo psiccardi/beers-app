@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:8.1-apache
 
 # Install packages
 RUN apt-get update && apt-get install -y \
@@ -14,17 +14,7 @@ RUN apt-get update && apt-get install -y \
     libmcrypt-dev \
     libreadline-dev \
     libfreetype6-dev \
-    libpng-dev \
-    libzip-dev \
     g++
-
-# COPY files-cron /etc/cron.d/files-cron
-
-# Give execution rights on the cron job
-# RUN chmod 0644 /etc/cron.d/files-cron
-
-# Apply cron job
-#RUN crontab /etc/cron.d/files-cron
 
 # Apache configuration
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
@@ -41,35 +31,54 @@ RUN docker-php-ext-install \
     opcache \
     calendar \
     pdo_mysql \
-    gd \
-    zip
-
-RUN apt-get update && apt-get install -y supervisor
+    gd
 
 #RUN pecl install apcu && docker-php-ext-enable apcu
 
 # Ensure PHP logs are captured by the container
 ENV LOG_CHANNEL=stderr
-ENV COMPOSER_ALLOW_SUPERUSER=1
+
 # Set a volume mount point for your code
 VOLUME /var/www/html
 
 # Copy code and run composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . /var/www/tmp
-RUN cd /var/www/tmp &&  composer install --no-dev
-COPY php.ini /usr/local/etc/php/php.ini
+# COPY ./app /var/www/tmp
+# COPY ./bootstrap /var/www/tmp
+# COPY ./config /var/www/tmp
+# COPY ./database /var/www/tmp
+# COPY ./lang /var/www/tmp
+# COPY ./node_modules /var/www/tmp
+# COPY ./public /var/www/tmp
+# COPY ./resources /var/www/tmp
+# COPY ./routes /var/www/tmp
+# COPY ./storage /var/www/tmp
+# COPY ./tests /var/www/tmp
+# COPY .editorconfig /var/www/tmp
+# COPY .env /var/www/tmp
+# COPY artisan /var/www/tmp
+# COPY composer.json /var/www/tmp
+# COPY composer.lock /var/www/tmp
+# COPY docker-entrypoint.sh /var/www/tmp
+# COPY package-lock.json /var/www/tmp
+# COPY package.json /var/www/tmp
+# COPY phpunit.xml /var/www/tmp
+# COPY vite.config.js /var/www/tmp
+
+RUN cd /var/www/tmp && composer install --no-dev
+RUN mkdir -p /Applications/XAMPP/xamppfiles/logs/
+RUN chmod -R 0777 /Applications/XAMPP/xamppfiles/logs/
+RUN mkdir -p /Applications/XAMPP/xamppfiles/temp/
+RUN chmod -R 0777 /Applications/XAMPP/xamppfiles/temp/
+
 COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf
-COPY laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
-#COPY php.ini /usr/local/etc/php/php.ini
+COPY php.ini /usr/local/etc/php/php.ini
 
 #RUN echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini
 
 # Ensure the entrypoint file can be run
 RUN chmod +x /var/www/tmp/docker-entrypoint.sh
-RUN mkdir -p /var/www/tmp/public/uploads
-RUN chown -R 0777 /var/www/tmp/public/uploads
-
 ENTRYPOINT ["/var/www/tmp/docker-entrypoint.sh"]
 
 # The default apache run command
