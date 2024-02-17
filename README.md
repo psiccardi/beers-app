@@ -23,7 +23,9 @@ To run unit tests from terminal:
 ## Test APIs with Postman (or equivalent) ##
 ### Login API ###
 ***Endpoint***: /api/login
+
 ***Method***: POST
+
 ***Parameters***:
  - ***username***: root
  - ***password***: password
@@ -34,7 +36,9 @@ This API returns a JSON object with the following keys:
 
 ### Beers List API ###
 ***Endpoint***: /api/beers
+
 ***Method***: GET
+
 ***Parameters***:
  - ***page***: 0 or any positive integer
  - ***limit***: 1-80 (if limit > 80 this API returns a Bad Request Error)
