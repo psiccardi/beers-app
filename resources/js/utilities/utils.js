@@ -207,7 +207,15 @@ Utils.DOM.removeLoading = () => {
 };
 
 Utils.DOM.toastCounters = 0;
-
+/**
+ * This function displays a toast.
+ *
+ * @param {Stirng} text: The text to print in the toast
+ *
+ * @param {Stirng} type: 'error' for red toast, 'success' for green toast
+ *
+ * @param {Function} t: the function used to translate the text
+ */
 Utils.DOM.toast = (text, type, t) => {
     let div = document.createElement("div");
     div.className = "snackbar";
@@ -241,219 +249,9 @@ Utils.DOM.toast = (text, type, t) => {
     }, 3000);
 };
 
-Utils.DOM.displayContextMenu = (e, data, data2 = {}, closeCallback) => {
-    /*
-        name: 'edit',
-        callback: () => {
-            // FACCIO COSE
-        },
-        text: 'Modifica
-    */
-
-    var div = document.createElement("div");
-    div.id = "context-menu-" + new Date().getTime();
-    div.style.position = "absolute";
-    div.style.backgroundColor = "white";
-    if (data2.border) {
-        div.style.border = data2.border;
-    } else {
-        div.style.border = "1px solid grey";
-    }
-
-    if (data2.boxShadow) {
-        div.style.boxShadow = data2.boxShadow;
-    }
-
-    if (data2.borderRadius) {
-        div.style.borderRadius = data2.borderRadius;
-    } else {
-        div.style.borderRadius = "10px";
-    }
-    div.style.width = "150px";
-    // div.style.height = '100px';
-    div.style.zIndex = "1";
-    if (!data2.position || data2.position == "left") {
-        div.style.left = e.clientX + window.pageXOffset - 150 + "px";
-    } else {
-        div.style.left = e.clientX + window.pageXOffset + "px";
-    }
-    div.style.top = event.clientY + window.pageYOffset + "px";
-    div.innerHTML = `
-            <ul class="bb-context-menu-list">
-            </ul>
-        `;
-
-    var _fnDestroyDiv = function (e) {
-        if (typeof closeCallback == 'function') {
-            closeCallback();
-        }
-        if (!document.getElementById(div.id)) {
-            document.removeEventListener("click", _fnDestroyDiv);
-            return;
-        }
-
-        if (e.target !== div) {
-            div.remove();
-            document.removeEventListener("click", _fnDestroyDiv);
-        }
-
-        console.log("_fnDestroyDiv");
-    };
-
-    for (let i = 0; i < data.length; i++) {
-        var li = document.createElement("li");
-        li.innerHTML = data[i].text;
-        if (!data[i].disabled) {
-            li.style.cursor = 'pointer';
-            li.onclick = function () {
-                if (data[i].callback) {
-                    console.log("__CALLBACK__");
-                    data[i].callback();
-                }
-                _fnDestroyDiv({ target: div });
-            };
-        } else {
-            li.style.opacity = 0.5;
-            li.style.cursor = 'auto';
-        }
-        div.querySelector("ul").appendChild(li);
-    }
-
-    document.body.appendChild(div);
-
-    setTimeout(() => document.addEventListener("click", _fnDestroyDiv), 1);
-};
-
-Utils.DOM.components = {};
-
-Utils.DOM.components.getTableBody = (values = []) => {
-    let html = '<tbody>'
-    if (typeof values == "string") {
-        html += values;
-    } else {
-        values.forEach((val) => {
-            html += Utils.DOM.components.getTableRow(val);
-        })
-    }
-    html += '</tbody>';
-    return html;
-}
-
-Utils.DOM.components.getTableRow = (vals, className = '') => {
-    let valuesArray = vals;
-    console.log(vals);
-    let classNameToAdd = className;
-    if (typeof vals.vals !== "undefined") {
-        valuesArray = vals.vals;
-    }
-    if (vals.class_name) {
-        classNameToAdd = vals.class_name;
-    }
-    console.log(valuesArray);
-    let html = `<tr class="${classNameToAdd}">`;
-    valuesArray.forEach((value) => {
-        if (typeof value == "string") {
-            html += `<td>${value}</td>`
-        } else {
-            const valueText = value.encoded ? Utils.string.encodeHTMLEntities(value.text) : value.text
-            html += `<td
-                class='${value.class_name ? value.class_name : ''}'
-                onclick='${value.onclick ? value.onclick : ''}
-                id='${value.id ? value.id : ''}'
-            >${valueText}</td>
-            `
-        }
-    })
-    html += '</tr>';
-    return html;
-}
-
-Utils.DOM.components.getDropdownElement = function (text, clickHandler, href = "", target = "") {
-    return `<a class="dropdown-item" ${href ? 'href="' + href + '"' : ''} onclick="${clickHandler}" ${target ? 'target="' + target + '"' : ''}>${text}</a>`;
-}
-
-Utils.DOM.components.getDropdown = function (elements = []) {
-    let html = `
-    <div class="dropdown mv-auto">
-        <span class="mv-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="${APP_URL}/img/icon-actions-ic-option.svg">
-        </span>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    `.trim().replace(/\s{2,}|\n/g, '');
-    elements.forEach(el => {
-        const text = el.text || '';
-        const clickHandler = el.clickHandler || '';
-        const href = el.href || '';
-        const target = el.target || '';
-        html += Utils.DOM.components.getDropdownElement(text, clickHandler, href, target);
-    })
-    html += `
-        </div>
-    </div>
-    `.trim().replace(/\s{2,}|\n/g, '');
-    return html;
-}
-
-Utils.DOM.components.getTableHeader = function (values, className = "firstTr", thead = true) {
-    let header = '';
-    if (thead) {
-        header += '<thead>';
-    }
-    header += `<tr class="${className}">`;
-    values.forEach((val) => {
-        if (typeof val == 'string') {
-            header += `<th>${val}</th>`
-        } else {
-            header += `<th
-                class="${val.className ? val.className : ''}"
-                onclick="${val.onclick ? val.onclick : ''}"
-                id="${val.id ? val.id : ''}"
-            >
-                ${val.text}
-            </th>
-            `
-        }
-    })
-    header += `</tr>`;
-    if (thead) {
-        header += '</thead>';
-    }
-
-    return header;
-}
-
-Utils.DOM.components.getHTMLElementAttributes = (attributes, quotes = '"', exclude = []) => {
-    let attributesText = '';
-    for (var prop in attributes) {
-        if (exclude.indexOf(prop) == -1) {
-            attributesText += prop + '=' + quotes + attributes[prop] + quotes + ' ';
-        }
-    }
-    return attributesText.trimEnd();
-}
-
-Utils.DOM.components.getModalField = ({ title, id, type = 'text', attributes = {}, value = '', options = []}) => {
-    const attributesText = Utils.DOM.components.getHTMLElementAttributes(attributes, '"', ['value', 'id', 'name', 'type']);
-    const className = attributes.class ? '' : 'class="form-control mv-auto"';
-    switch (type) {
-        case 'number':
-        case 'email':
-        case 'text':
-            return `
-                <div class="form-group">
-                    <label for=${id}>${title}</label>
-                    <input id="${id}" ${attributesText}  name="${id}" ${className} value="${value}" type="${type}">
-                </div>
-            `.trim().replace(/\s{2,}|\n/g, '');
-            // <div class="form-group">
-            //             <label for="class_name">{{ __("data.models.sso_types.column_aliases.class_name") }}</label>
-            //             <input id="class_name" class="form-control mv-auto" name="class_name" type="text" />
-            //         </div>
-            break;
-    }
-}
-
-
+/**
+ * Utilities to handle dates
+ */
 Utils.date = {};
 
 Utils.date.getAge = function (date) {
