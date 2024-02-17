@@ -38,8 +38,9 @@ This API returns a JSON object with the following keys:
 ***Parameters***:
  - ***page***: 0 or any positive integer
  - ***limit***: 1-80 (if limit > 80 this API returns a Bad Request Error)
+
 ***Authentication***:
-This route is protected, so you have to add a Bearer Authentication header with the token retrievet from ***Login API***.
+This route is protected, so you have to add a Bearer Authentication header with the token retrieved from ***Login API***.
 
 An example with curl:
 ```
