@@ -31,7 +31,9 @@ class BeersController extends Controller
             }
 
             if (!empty($beers["error"])) {
-
+                $statusCode = $beers["statusCode"] ?? 500;
+                $msg = $beers["message"] ?? "Internal server error";
+                return response()->json(['error' => $msg], $statusCode);
             }
 
             return response()->json($beers);

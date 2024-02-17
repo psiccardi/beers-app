@@ -18,8 +18,12 @@ class CustomSanctumAuthentication
     public function handle(Request $request, Closure $next, ...$guards): Response
     {
         if (
-            $this->authenticateViaRemember($request, $guards) ||
-            $this->authenticateViaSanctum($request, $guards) ||
+            (
+                method_exists($this, 'authenticateViaRemember') && $this->authenticateViaRemember($request, $guards)
+            ) || (
+                method_exists($this, 'authenticateViaSanctum') && $this->authenticateViaSanctum($request, $guards)
+            )
+             ||
             $request->user()
         ) {
             return $next($request);
@@ -39,7 +43,7 @@ class CustomSanctumAuthentication
     }
 
     public function authenticateViaRemember($request, array $guards) {
-        if (Auth::viaRemember()) {
+        if (method_exists(Auth::class, 'viaRemember') && Auth::viaRemember()) {
             return Auth::shouldUse('sanctum');
         }
 

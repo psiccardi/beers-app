@@ -24,7 +24,7 @@ Route::middleware(['customSanctumAuthentication', 'locale'])->group(function () 
         return $user;
     });
 
-    Route::get("/beers", [BeersController::class, "get"]);
+    Route::get("/beers", [BeersController::class, "get"])->name('api.beers');
 });
 
 Route::middleware('locale')->group(function () {

@@ -44,6 +44,7 @@ ENV LOG_CHANNEL=stderr
 # Copy code and run composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . /var/www/tmp
+RUN cp /var/www/tmp/.env.docker /var/www/tmp/.env
 # COPY ./app /var/www/tmp
 # COPY ./bootstrap /var/www/tmp
 # COPY ./config /var/www/tmp
