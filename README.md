@@ -1,5 +1,5 @@
 # Beers app
-This project consists of a login and a protected route with a list of beers.
+This project consists of a login form and a page that exposes a list of beers.
 
 ## Init the project ##
 The first steps are:
