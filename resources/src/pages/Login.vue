@@ -80,7 +80,7 @@
                     <b-form-group
                     id="input-group-submit"
                     >
-                        <b-button variant="primary" type="submit" id="submit" >Send</b-button>
+                        <b-button variant="primary" type="submit" id="submit" >{{ t('send') }}</b-button>
                     </b-form-group>
                 </b-form>
             </div>
