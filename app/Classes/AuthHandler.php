@@ -12,9 +12,7 @@ class AuthHandler
 {
     /**
      * Deletes expired token provided by Bearer Authentication header
-     * when the user is not logged.
-     * For security reasons it double checks the token
-     * against id and token part of the Bearer Authentication header
+     * when user's authentication fails due to token expiration
      *
      * @param string|null $token: the full bearer token
      *
