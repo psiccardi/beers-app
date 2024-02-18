@@ -86,6 +86,7 @@ export function jsonDeleteAPI(url, data, success, error, signal) {
      * Adding X-XSRF-TOKEN header
      */
     const headers = {
+        "Accept": "application/json",
         "Content-Type": "application/json; charset=utf-8",
         "X-XSRF-TOKEN": xsrfToken,
     }
@@ -141,6 +142,7 @@ export function jsonPostAPI(url, data, success, error, signal) {
      * Adding X-XSRF-TOKEN header
      */
     const headers = {
+        "Accept": "application/json",
         "Content-Type": "application/json; charset=utf-8",
         "X-XSRF-TOKEN": xsrfToken,
     }
@@ -193,6 +195,7 @@ export function getAPI(url, data, success, error, signal) {
     data.lang = localStorage.getItem('locale')
     const xsrfToken = decodeURIComponent(getCookie('XSRF-TOKEN'));
     const headers = {
+        "Accept": "application/json",
         "Content-Type": "application/json; charset=utf-8",
         "X-XSRF-TOKEN": xsrfToken
     }

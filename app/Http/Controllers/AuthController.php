@@ -25,9 +25,9 @@ class AuthController extends Controller
      *
      * @param Request $request
      *
-     * @return Redirector|RedirectResponse
+     * @return Redirector|RedirectResponse|JsonResponse
      */
-    public function logoutWeb(Request $request): Redirector|RedirectResponse
+    public function logoutWeb(Request $request): Redirector|RedirectResponse|JsonResponse
     {
         try {
             if (!AuthHandler::revokeToken($request)) {
@@ -37,8 +37,14 @@ class AuthController extends Controller
                 Log::info("AuthHandler::logoutWeb failure");
                 throw new \Exception(__("errors.logout_error"));
             }
+            if ($request->isJson()) {
+                return response()->json(["success" => true]);
+            }
             return redirect(route('login'));
         } catch (\Exception $e) {
+            if ($request->isJson()) {
+                return ErrorHandler::handleApiInternalServerError(__METHOD__, $e);
+            }
             ErrorHandler::logError(__METHOD__, $e);
             return redirect(route('login'));
         }

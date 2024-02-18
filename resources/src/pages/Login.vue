@@ -9,9 +9,11 @@
     import { jsonPostAPI, jsonGetAPI, getAPI, loginWebAPI } from '../../js/utilities/api.js';
     const { t, locale } = useI18n();
     import Utils from '../../js/utilities/utils.js';
+    import { useRouter } from 'vue-router';
     const username = ref('');
     const password = ref('');
     const csrf = ref(document.querySelector('meta[name="csrf-token"]').getAttribute('content'))
+    const router = useRouter();
     function login() {
         getAPI('/sanctum/csrf-cookie', {}, resp => {
             loginWebAPI({
@@ -22,7 +24,8 @@
                 Utils.response.handleError(resp, t);
                 if (resp.token) {
                     setCookie('auth_token', resp.token);
-                    setTimeout(() => window.location.href = APP_URL + '/beers', 100);
+                    router.push("/beers");
+                    // setTimeout(() => window.location.href = APP_URL + '/beers', 100);
                 }
             }, err => {
                 Utils.DOM.toast(err.message, "error", t);
