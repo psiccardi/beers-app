@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes\AuthHandler;
 use App\Models\User;
 use Illuminate\Support\Str;
+use App\Classes\AuthHandler;
 use Illuminate\Http\Request;
 use App\Classes\ErrorHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
@@ -33,17 +34,14 @@ class AuthController extends Controller
                 throw new \Exception(__("errors.token_not_revoked"));
             }
             if (!AuthHandler::logoutWeb($request)) {
-                throw new \Exception(_("errors.logout_error"));
+                Log::info("AuthHandler::logoutWeb failure");
+                throw new \Exception(__("errors.logout_error"));
             }
             return redirect(route('login'));
         } catch (\Exception $e) {
-            return ErrorHandler::logError(__METHOD__, $e);
+            ErrorHandler::logError(__METHOD__, $e);
             return redirect(route('login'));
         }
-        // $tokenId = Str::before(request()->bearerToken(), '|');
-        // auth()->user()->tokens()->where('id', $tokenId )->delete();
-
-
     }
 
     /**
@@ -92,18 +90,27 @@ class AuthController extends Controller
             return ErrorHandler::handleApiBadRequestError(__METHOD__, $validateData->errors()->first());
         }
 
-        $user = User::where('username', $request->username)->first();
+        try {
+            $user = User::where('username', $request->username)->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return ErrorHandler::handleApiUnauthorizedError(__METHOD__, __("errors.invalid_credentials"));
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return ErrorHandler::handleApiUnauthorizedError(__METHOD__, __("errors.invalid_credentials"));
+            }
+
+            $token = AuthHandler::createToken($user);
+
+            if (empty($token)) {
+                $e = new \Exception("Could not create token");
+                return ErrorHandler::handleApiInternalServerError(__METHOD__, $e);
+            }
+
+            return response()->json([
+                'token' => $token,
+                'user' => $user
+            ]);
+        } catch (\Exception $e) {
+            return ErrorHandler::handleApiInternalServerError(__METHOD__, $e);
         }
-
-        $token = $user->createToken(Str::random(8))->plainTextToken;
-
-        return response()->json([
-            'token' => $token,
-            'user' => $user
-        ]);
     }
 
     /**
@@ -127,18 +134,27 @@ class AuthController extends Controller
             return ErrorHandler::handleApiBadRequestError(__METHOD__, $validateData->errors()->first());
         }
 
-        if (!Auth::attempt([
-            'username' => $request->username,
-            'password' => $request->password
-        ])) {
-            return ErrorHandler::handleApiUnauthorizedError(__METHOD__, __("errors.invalid_credentials"));
+        try {
+            if (!Auth::attempt([
+                'username' => $request->username,
+                'password' => $request->password
+            ])) {
+                return ErrorHandler::handleApiUnauthorizedError(__METHOD__, __("errors.invalid_credentials"));
+            }
+
+            $user = auth()->user();
+            $token = AuthHandler::createToken($user);
+
+            if (empty($token)) {
+                throw new \Exception("Could not create token");
+            }
+
+            return response()->json([
+                'token' => $token,
+                'user' => $user
+            ]);
+        } catch (\Exception $e) {
+            return ErrorHandler::handleApiInternalServerError(__METHOD__, $e);
         }
-
-        $token = auth()->user()->createToken(Str::random(8))->plainTextToken;
-
-        return response()->json([
-            'token' => $token,
-            'user' => auth()->user()
-        ]);
     }
 }
