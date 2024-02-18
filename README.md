@@ -35,6 +35,16 @@ This API returns a JSON object with the following keys:
  - **token**: the token that should be used for subsequent API requests
  - **user**: an object representing the current user
 
+### Logout API ###
+**Endpoint**: /api/logout
+
+**Method**: POST
+
+**Parameters**: no parameters needed
+
+**Authentication**:
+This route is protected, so you have to add a Bearer Authentication header with the token retrieved from **Login API**.
+
 ### Beers List API ###
 **Endpoint**: /api/beers
 
