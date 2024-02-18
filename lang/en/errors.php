@@ -7,4 +7,6 @@ return [
     'password_not_match' => 'The passwords don\'t match',
     'user_not_found' => 'User not found',
     'post_not_found' => 'Post not found',
+    'token_not_revoked' => 'Could not revoke token',
+    'logout_error' => 'Could not logout',
 ];

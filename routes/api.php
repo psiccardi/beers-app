@@ -24,6 +24,7 @@ Route::middleware(['customSanctumAuthentication', 'locale'])->group(function () 
     });
 
     Route::get("/beers", [BeersController::class, "get"])->name('api.beers');
+    Route::post("/logout", [AuthController::class, "logout"])->name('api.logout');
 });
 
 Route::middleware('locale')->group(function () {

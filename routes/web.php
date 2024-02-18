@@ -25,7 +25,7 @@ Route::middleware('locale')->group(function () {
 });
 
 Route::middleware(['locale', 'auth:sanctum'])->group(function () {
-    Route::get("/logout", [AuthController::class, "logoutWeb"]);
+    Route::get("/logout", [AuthController::class, "logoutWeb"])->name('web.logout');
     Route::get("/beers", [HomeController::class, "getPage"])->name('beers');
 });
 
