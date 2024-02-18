@@ -396,13 +396,13 @@ export function getUserAPI(data, success, error, signal) {
 /**
  * Gets beers list
  *
- * @param {Object} data
+ * @param {Object} data: an object with 'page' and 'limit' parameters
  *
- * @param {Function} success
+ * @param {Function} success: callback to be called after a successful request
  *
- * @param {Function} error
+ * @param {Function} error: callback to be called after an error
  *
- * @param {Number} signal
+ * @param {Number} signal: the signal of the request (used to cancel the request)
  */
 export function getBeersAPI(data, success, error, signal) {
     jsonGetAPI('/api/beers', data, success, error, signal);
