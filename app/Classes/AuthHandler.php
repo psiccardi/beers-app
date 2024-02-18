@@ -6,9 +6,30 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthHandler
 {
+    /**
+     * Deletes expired token provided by Bearer Authentication header
+     * when the user is not logged.
+     * For security reasons it double checks the token
+     * against id and token part of the Bearer Authentication header
+     *
+     * @param string|null $token: the full bearer token
+     *
+     * @return bool true if succeded, false on failure
+     */
+    public static function deleteExpiredToken(string|null $token = null)
+    {
+        $tokenDB = PersonalAccessToken::findToken($token);
+        if ($tokenDB) {
+            $tokenDB->delete();
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Revokes the token passed in the Bearer Authentication header
      * or in 'auth_token' cookie

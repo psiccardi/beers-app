@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Classes\AuthHandler;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,9 @@ class CustomSanctumAuthentication
         ) {
             return $next($request);
         }
+
+        $bearer = $request->bearerToken();
+        AuthHandler::deleteExpiredToken($bearer);
 
         return response()->json([
             "error" => __("errors.permission_denied")
