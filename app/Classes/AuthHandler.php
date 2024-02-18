@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -44,7 +45,11 @@ class AuthHandler
     public static function createToken(Authenticatable $user): string|null
     {
         try {
-            return $user->createToken(Str::random(8))->plainTextToken;
+            return $user->createToken(
+                Str::random(8),
+                ['*'],
+                Carbon::now()->addMinutes(config('sanctum.expiration'))
+            )->plainTextToken;
         } catch (\Exception $e) {
             return null;
         }
