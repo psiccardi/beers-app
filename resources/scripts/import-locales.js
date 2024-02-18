@@ -1,3 +1,9 @@
+/**
+ * This script loads dynamically locales from resources/locales folders
+ * and generates automatically the 'Locale' component adding those locales,
+ * and also adds the locales into the /resources/js/i18n/index.js which is the
+ * configuration file for the locales
+ */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';

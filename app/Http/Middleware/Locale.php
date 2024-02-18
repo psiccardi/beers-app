@@ -34,6 +34,9 @@ class Locale
 
         if ($request->has('lang')) {
             $lang = $request->get('lang');
+            if (!in_array($lang, $locales)) {
+                $lang = 'en'; // default language is 'en'
+            }
         }
 
         app()->setLocale($lang);
