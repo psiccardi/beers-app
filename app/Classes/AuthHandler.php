@@ -10,6 +10,7 @@ class AuthHandler
 {
     /**
      * Revokes the token passed in the Bearer Authentication header
+     * or in 'auth_token' cookie
      *
      * @param Request $request
      *
@@ -18,7 +19,13 @@ class AuthHandler
     public static function revokeToken(Request $request): bool
     {
         try {
-            $tokenId = Str::before($request->bearerToken(), '|');
+            $tokenId = null;
+            if (!empty($request->bearerToken())) {
+                $tokenId = Str::before($request->bearerToken(), '|');
+            } else {
+                $tokenId = Str::before($_COOKIE['auth_token'] ?? '', '|');
+            }
+
             $request->user()->tokens()->where('id', $tokenId)->delete();
             return true;
         } catch (\Exception $e) {
